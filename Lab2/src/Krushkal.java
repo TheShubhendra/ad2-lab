@@ -33,9 +33,9 @@ class DisjointSet{
 	}
 }
 
-class Edge implements Comparable<Edge>{
+class fEdge implements Comparable<Edge>{
 	int u,v,w;
-	Edge(int u, int v, int w){
+	void Edge(int u, int v, int w){
 		this.u = u;
 		this.v = v;
 		this.w = w;
@@ -47,7 +47,7 @@ class Edge implements Comparable<Edge>{
 	
 }
 
-class Graph{
+class Graph1{
 	
 
 	

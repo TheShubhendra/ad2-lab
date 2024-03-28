@@ -84,12 +84,9 @@ class Graph{
 	
 	void relax(Vertex u, Vertex v, int w, PriorityQueue<Vertex> q) {
 		if(u.d + w < v.d) {
-			q.remove(v);
 			v.d = u.d + w;
 			v.p = u;
-			q.add(v);
-			
-			
+//			q.offer(v);
 		}
 	}
 	
