@@ -53,9 +53,8 @@ public class StringMatching {
 			res.add(0);
 		}
 		for(int i=1; i<s.length() - pat.length(); i++) {
-			System.out.println(tnum);
-			System.out.println((int) Math.pow(10, m-1));
-//				tnum = (tnum - (int) Math.pow(10, m-1) * s.charAt(i-1))*10 + s.charAt(i+m-1) - 'a' + 1;
+			System.out.println(s.charAt(i-1));
+//				tnum = (tnum - (int) Math.pow(10, m-1) * s.charAt(i-1) - 'a' + 1)*10 + s.charAt(i+m-1) - 'a' + 1;
 				tnum = (tnum % (int) Math.pow(10, m-1) )*10 + s.charAt(i+m-1) - 'a' + 1;
 				if(pnum==tnum) {
 					res.add(i);
