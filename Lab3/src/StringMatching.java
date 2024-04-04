@@ -46,21 +46,36 @@ public class StringMatching {
 	public static List<Integer> robin_karp(String s, String pat){
 		List<Integer> res = new ArrayList<Integer>();
 		int m = pat.length();
-		int pnum = encode(pat);
-		int tnum = encode(s.substring(0, m));
+		int n =s.length();
+		int pnum = 0;
+		int tnum = 0;
+		int h=1;
+		int p= 13;
+		for(int i=0; i<m; i++) {
+			pnum = (pnum*10 + pat.charAt(i))%p;
+			tnum = (tnum*10 + s.charAt(i))%p;
+			if(i<m-1) {
+				h = (h-1)%p;
+			}
+		}
 		
-		if(pnum==tnum) {
-			res.add(0);
-		}
-		for(int i=1; i<s.length() - pat.length(); i++) {
-			System.out.println(s.charAt(i-1));
-//				tnum = (tnum - (int) Math.pow(10, m-1) * s.charAt(i-1) - 'a' + 1)*10 + s.charAt(i+m-1) - 'a' + 1;
-				tnum = (tnum % (int) Math.pow(10, m-1) )*10 + s.charAt(i+m-1) - 'a' + 1;
+		for(int i=0; i<=n - m; i++) {
 				if(pnum==tnum) {
-					res.add(i);
+					int k=i;
+					while(k<i+m && pat.charAt(k-i)==s.charAt(k)) {
+						k++;
+					}
+					if(k==i+m) {
+						res.add(i);
+					}
 				}
-				
+				if (i<n-m) {
+					tnum = ((tnum -  s.charAt(i) *h)*10 + s.charAt(i+m))%p;
+					if(tnum<0)
+						tnum+=p;					
+				}
 		}
+
 		return res;
 	}
 
@@ -83,12 +98,10 @@ public class StringMatching {
 	}
 	
 	public static void main(String[] args) {
-//		String s = "abcaabccabcba";
-//		String pat = "abc";
-		
-		String s = "abacbcaccbcabc";
-		// 12132313323123
-		String p = "cbc";
+		String s = "abcaabccabcba";
+		String p = "abc";
+//		String s = "abacbcaccbcabc";
+//		String p = "cbc";
 //		System.out.println("pat: "+ encode(p));
 //		System.out.println("string: "+ encode(s.substring(0, 3)));
 		List<Integer> res  = robin_karp(s,p);
@@ -96,9 +109,9 @@ public class StringMatching {
 			System.out.println("Pattern found at shift: "+ shift);
 		}
 		
-		System.out.println("Apple has unique characters ?: " + hasUniqueCharaters("ApPle"));
-		System.out.println("Mango has unique characters ?: " + hasUniqueCharaters("Mango"));
-		System.out.println("Aplicability: " + removeDuplicates("Aplicability") );
+//		System.out.println("Apple has unique characters ?: " + hasUniqueCharaters("ApPle"));
+//		System.out.println("Mango has unique characters ?: " + hasUniqueCharaters("Mango"));
+//		System.out.println("Aplicability: " + removeDuplicates("Aplicability") );
 	}
 
 }
