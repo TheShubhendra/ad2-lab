@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 public class StringMatching {
-	
+	public static int p = 8;
+	public static int symbols = 156;
 	public static String removeDuplicates(String s) {
 //		StringBuilder sb  = new StringBuilder();
 		int k=0;
@@ -34,15 +35,7 @@ public class StringMatching {
 		return true;
 	}
 	
-	public static int encode(String s) {
-		int res = 0;
-		for(char ch: s.toCharArray()) {
-			res*=10;
-			res+=(int)ch - 'a' + 1;
-		}
-		return res;
-	}
-	
+
 	public static List<Integer> robin_karp(String s, String pat){
 		List<Integer> res = new ArrayList<Integer>();
 		int m = pat.length();
@@ -50,12 +43,11 @@ public class StringMatching {
 		int pnum = 0;
 		int tnum = 0;
 		int h=1;
-		int p= 13;
 		for(int i=0; i<m; i++) {
-			pnum = (pnum*10 + pat.charAt(i))%p;
-			tnum = (tnum*10 + s.charAt(i))%p;
+			pnum = (pnum*symbols + pat.charAt(i))%p;
+			tnum = (tnum*symbols + s.charAt(i))%p;
 			if(i<m-1) {
-				h = (h-1)%p;
+				h = (h*symbols)%p;
 			}
 		}
 		
@@ -70,7 +62,7 @@ public class StringMatching {
 					}
 				}
 				if (i<n-m) {
-					tnum = ((tnum -  s.charAt(i) *h)*10 + s.charAt(i+m))%p;
+					tnum = ((tnum -  s.charAt(i) *h)*symbols + s.charAt(i+m))%p;
 					if(tnum<0)
 						tnum+=p;					
 				}
@@ -98,10 +90,10 @@ public class StringMatching {
 	}
 	
 	public static void main(String[] args) {
-		String s = "abcaabccabcba";
-		String p = "abc";
-//		String s = "abacbcaccbcabc";
-//		String p = "cbc";
+//		String s = "abcdaabccabcyba";
+//		String p = "abcy";
+		String s = "abacbcaccbcabccbc";
+		String p = "cbc";
 //		System.out.println("pat: "+ encode(p));
 //		System.out.println("string: "+ encode(s.substring(0, 3)));
 		List<Integer> res  = robin_karp(s,p);
